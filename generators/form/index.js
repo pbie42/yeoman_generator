@@ -34,23 +34,21 @@ const names = [
 class Form extends Base {
 
   prompting() {
-    var self = this
    return this.prompt(questions).then((answers) => {
-      if (this.formother) self.prompting()
+      if (this.formother) this.prompting()
       this.formName = answers.name
       this.log(this.formName)
    })
   }
 
   prompting2 () {
-     var done = this.async()
-    const self = this
+   const done = this.async()
     return this.prompt(names).then((answers) => {
       inputs.push(answers.inputs)
       if (answers.another) this.prompting2()
       else {
-        self.inputs = inputs
-        this.log(self.inputs)
+        this.inputs = inputs
+        this.log(this.inputs)
         done()
       }
     })
