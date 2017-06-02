@@ -1,5 +1,11 @@
 const Generator = require('yeoman-generator')
 
+class Base extends Generator {
+	mirror(name, data={}) {
+		this.fs.copyTpl(this.templatePath(name), this.destinationPath(name), data)
+	}
+}
+
 const questions = [
     { type: 'input',
       name: 'name',
@@ -25,17 +31,19 @@ const names = [
 
   const inputs = []
 
-module.exports = class extends Generator {
+class Form extends Base {
 
   prompting() {
     var self = this
-      return this.prompt(questions).then((answers) => {
-        this.formName = answers.name
-        this.log(this.formName)
-    })
+   return this.prompt(questions).then((answers) => {
+      if (this.formother) self.prompting()
+      this.formName = answers.name
+      this.log(this.formName)
+   })
   }
 
   prompting2 () {
+     var done = this.async()
     const self = this
     return this.prompt(names).then((answers) => {
       inputs.push(answers.inputs)
@@ -43,8 +51,15 @@ module.exports = class extends Generator {
       else {
         self.inputs = inputs
         this.log(self.inputs)
+        done()
       }
     })
   }
 
+  writing() {
+		this.mirror('src/form_main.js', { name: this.formName })
+  }
+
 }
+
+module.exports = Form
