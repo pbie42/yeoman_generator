@@ -27,20 +27,23 @@ const names = [
 
 module.exports = class extends Generator {
 
-   prompting() {
-     var self = this
-      return this.prompt(questions).then(function (answers) {
-        self.formName = answers.name
-        console.log(`self.formName`, self.formName)
-    });
-   }
+  prompting() {
+    var self = this
+      return this.prompt(questions).then((answers) => {
+        this.formName = answers.name
+        this.log(this.formName)
+    })
+  }
 
   prompting2 () {
     const self = this
-    return this.prompt(names).then(function (answers) {
+    return this.prompt(names).then((answers) => {
       inputs.push(answers.inputs)
-      if (answers.another) self._inputs()
-      else self.inputs = inputs
+      if (answers.another) this.prompting2()
+      else {
+        self.inputs = inputs
+        this.log(self.inputs)
+      }
     })
   }
 
