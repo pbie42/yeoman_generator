@@ -4,21 +4,13 @@ import { div, label, button, form, VNode } from '@cycle/dom'
 import { textInput } from './views'
 import { State } from './model'
 
-const view = ({ name, email, password,  }: State): VNode => {
-  console.log({ name, email, password,  })
-    return form({attrs: { onsubmit: "return false" }}, [ 
+const view = ({ <% inputs.forEach(i => { %><%= i %>, <% }) %> }: State): VNode => {
+  console.log({ <% inputs.forEach(i => { %><%= i %>, <% }) %> })
+    return form({attrs: { onsubmit: "return false" }}, [<% inputs.forEach(i => { %>
       div([
-        label({ attrs: { for: '#name' } }, 'name'),
-        textInput('#name', name)
-      ]),
-      div([
-        label({ attrs: { for: '#email' } }, 'email'),
-        textInput('#email', email)
-      ]),
-      div([
-        label({ attrs: { for: '#password' } }, 'password'),
-        textInput('#password', password)
-      ]),
+        label({ attrs: { for: '#<%= i %>' } }, '<%= i %>'),
+        textInput('#<%= i %>', <%= i %>)
+      ]),<% }) %>
       button('#submit', 'Submit')
     ])}
 

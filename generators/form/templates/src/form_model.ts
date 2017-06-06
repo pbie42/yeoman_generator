@@ -17,14 +17,14 @@ export default function model(actions: Stream<Function>) {
   return { states, newSubmit }
 }
 
-export const init = () => ({ name: '', email: '', password: '',  })
+
+export const init = () => ({ <% inputs.forEach(i => { %><%= i %>: '', <% }) %> })
 
 export const clear = () => init()
 
 export const submitFn = (state) => state
+<% inputs.forEach(i => { %>
+export const <%= i %>Change = (<%= i %>, state) => assign(state, { <%= i %> })
+<% }) %>
 
-export const nameChange = (name, state) => assign(state, { name })
 
-export const emailChange = (email, state) => assign(state, { email })
-
-export const passwordChange = (password, state) => assign(state, { password })

@@ -63,11 +63,11 @@ class Form extends Base {
   }
 
   writing() {
-		this.mirror('src/form_main.js', `${this.path}_${this.formName}.js`, { name: this.formName })
-    this.mirror('src/form_model.js', `${this.path}model.js`, { inputs: this.inputs })
-    this.mirror('src/form_intent.js', `${this.path}intent.js`, { inputs: this.inputs })
-    this.mirror('src/form_view.js', `${this.path}view.js`, { inputs: this.inputs })
-    this.mirror('src/form_views.js', `${this.path}views.js`)
+		this.mirror('src/form_main.ts', `${this.path}_${this.formName}.ts`, { name: this.formName })
+    this.mirror('src/form_model.ts', `${this.path}model.ts`, { inputs: this.inputs })
+    this.mirror('src/form_intent.ts', `${this.path}intent.ts`, { inputs: this.inputs })
+    this.mirror('src/form_view.ts', `${this.path}view.ts`, { inputs: this.inputs })
+    // this.mirror('src/form_views.ts', `${this.path}views.js`)
   }
 
 }

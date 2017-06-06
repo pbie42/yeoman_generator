@@ -18,13 +18,15 @@ export default function intent({ DOM, HTTP }:Sources, submits:Stream<{}>, reset:
   )(HTTP)
 
   const submitSuccess = queries.responses.submitForm
-<% inputs.forEach(i => { %>
-  const <%= i %>Ev: Stream<Event> = DOM.select('#<%= i %>').events('input')
 
+  const submitEv: Stream<Event> = DOM.select('#submit').events('click')
+<% inputs.forEach(i => { %>
+  const <%= i %>Ev: Stream<Event> = DOM.select('#<%= i %>').events('input')<% }) %>
+
+<% inputs.forEach(i => { %>
   const <%= i %>: Stream<Function> = <%= i %>Ev.map(ev => (ev.target as HTMLInputElement).value)
                                        .map(<%= i %> => bind(<%= i %>Change, <%= i %>))
 <% }) %>
-  const submitEv: Stream<Event> = DOM.select('#submit').events('click')
 
   const submit: Stream<Function> = submitEv.mapTo(submitFn)
 

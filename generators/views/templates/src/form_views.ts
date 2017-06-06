@@ -1,4 +1,4 @@
-import { input } from '@cycle/dom'
+import { input, VNode } from '@cycle/dom'
 
 export const textInput = (cls, value) =>
   input(cls, { attrs: { type: 'text', value: value }, hook: {
