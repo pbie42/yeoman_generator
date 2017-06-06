@@ -6,7 +6,7 @@ import model from "./model"
 import view from "./view"
 import intent from "./intent"
 
-export default function new(sources) {
+export default function someForm(sources) {
 
   const resets = xs.create()
   const submits = xs.create()

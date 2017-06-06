@@ -1,8 +1,8 @@
 const Generator = require('yeoman-generator')
 
 class Base extends Generator {
-	mirror(name, data={}) {
-		this.fs.copyTpl(this.templatePath(name), this.destinationPath(name), data)
+	mirror(name, dest, data={}) {
+		this.fs.copyTpl(this.templatePath(name), this.destinationPath(dest), data)
 	}
 }
 
@@ -11,6 +11,12 @@ const questions = [
       name: 'name',
       message: 'What is the name of this form?',
       default: 'someForm'
+    },
+    {
+      type: 'input',
+      name: 'path',
+      message: 'What is the destination path for this form?',
+      default: 'src/'
     }
   ]
 
@@ -37,7 +43,9 @@ class Form extends Base {
    return this.prompt(questions).then((answers) => {
       if (this.formother) this.prompting()
       this.formName = answers.name
+      this.path = answers.path
       this.log(this.formName)
+      this.log(this.path)
    })
   }
 
@@ -55,7 +63,11 @@ class Form extends Base {
   }
 
   writing() {
-		this.mirror('src/form_main.js', { name: this.formName })
+		this.mirror('src/form_main.js', `${this.path}_${this.formName}.js`, { name: this.formName })
+    this.mirror('src/form_model.js', `${this.path}model.js`, { inputs: this.inputs })
+    this.mirror('src/form_intent.js', `${this.path}intent.js`, { inputs: this.inputs })
+    this.mirror('src/form_view.js', `${this.path}view.js`, { inputs: this.inputs })
+    this.mirror('src/form_views.js', `${this.path}views.js`)
   }
 
 }

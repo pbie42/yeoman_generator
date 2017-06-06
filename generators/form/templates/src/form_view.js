@@ -3,16 +3,13 @@ import { div, label, button, form } from '@cycle/dom'
 
 import { textInput } from '../views'
 
-
-const view = ({ {{#parts}}{{idName}}, {{/parts}} }) => {
-  console.log({ {{#parts}}{{idName}}, {{/parts}} })
-    return form({attrs: { onsubmit: "return false" }}, [
-      {{#parts}}
+const view = ({ <% inputs.forEach(i => { %><%= i %>, <% }) %> }) => {
+  console.log({ <% inputs.forEach(i => { %><%= i %>, <% }) %> })
+    return form({attrs: { onsubmit: "return false" }}, [ <% inputs.forEach(i => { %>
       div([
-        label({ attrs: { for: '#{{idName}}' } }, '{{idName}}'),
-        textInput('#{{idName}}', {{idName}})
-      ]),
-      {{/parts}}
+        label({ attrs: { for: '#<%= i %>' } }, '<%= i %>'),
+        textInput('#<%= i %>', <%= i %>)
+      ]),<% }) %>
       button('#submit', 'Submit')
     ])}
 
