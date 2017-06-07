@@ -7,6 +7,20 @@ class Base extends Generator {
 }
 
 const questions = [
+    {
+      type: 'list',
+      name: 'format',
+      message: 'Would you like the files output in TypeScript or JavaScript?',
+      choices: ['TypeScript', 'JavaScript'],
+      filter: function (val) {
+        return val.toLowerCase();
+      }
+    },
+    { type: 'input',
+      name: 'itemName',
+      message: 'What is the main item this formList will hold?',
+      default: 'item'
+    },
     { type: 'input',
       name: 'formName',
       message: 'What is the name of the FORM in this formList?',
@@ -16,11 +30,6 @@ const questions = [
       name: 'listName',
       message: 'What is the name of the LIST in this formList?',
       default: 'someList'
-    },
-    { type: 'input',
-      name: 'itemName',
-      message: 'What is the main item this list will hold?',
-      default: 'item'
     },
     {
       type: 'input',
@@ -55,6 +64,7 @@ class FormList extends Base {
       this.formName = answers.formName
       this.listName = answers.listName
       this.itemName = answers.itemName
+      this.format = answers.format
       if (answers.path.endsWith('/')) this.path = answers.path
       else this.path = answers.path + '/'
       this.log(this.formName)
@@ -84,17 +94,30 @@ class FormList extends Base {
       itemNameL:this.itemName.toLowerCase(),
       itemNameU: capitalizeFirstLetter(this.itemName)
     }
-    this.mirror('src/TypeScript/formlist_app.ts', `${this.path}app.ts`, data)
-    this.mirror('src/TypeScript/formlist_interfaces.ts', `${this.path}/interfaces.ts`, data)
-		this.mirror('src/TypeScript/form/form_main.ts', `${this.path}${this.formName}/_${this.formName}.ts`, data)
-    this.mirror('src/TypeScript/form/form_model.ts', `${this.path}${this.formName}/model.ts`, data)
-    this.mirror('src/TypeScript/form/form_intent.ts', `${this.path}${this.formName}/intent.ts`, data)
-    this.mirror('src/TypeScript/form/form_view.ts', `${this.path}${this.formName}/view.ts`, data)
-		this.mirror('src/TypeScript/list/list_main.ts', `${this.path}${this.listName}/_${this.listName}.ts`, data)
-    this.mirror('src/TypeScript/list/list_model.ts', `${this.path}${this.listName}/model.ts`, data)
-    this.mirror('src/TypeScript/list/list_intent.ts', `${this.path}${this.listName}/intent.ts`, data)
-    this.mirror('src/TypeScript/list/list_view.ts', `${this.path}${this.listName}/view.ts`, data)
-    this.mirror('src/TypeScript/list/item/_item.ts', `${this.path}${this.listName}/item/_item.ts`, data)
+    if (this.format === 'typescript') {
+      this.mirror('src/TypeScript/formlist_app.ts', `${this.path}app.ts`, data)
+      this.mirror('src/TypeScript/formlist_interfaces.ts', `${this.path}/interfaces.ts`, data)
+      this.mirror('src/TypeScript/form/form_main.ts', `${this.path}${this.formName}/_${this.formName}.ts`, data)
+      this.mirror('src/TypeScript/form/form_model.ts', `${this.path}${this.formName}/model.ts`, data)
+      this.mirror('src/TypeScript/form/form_intent.ts', `${this.path}${this.formName}/intent.ts`, data)
+      this.mirror('src/TypeScript/form/form_view.ts', `${this.path}${this.formName}/view.ts`, data)
+      this.mirror('src/TypeScript/list/list_main.ts', `${this.path}${this.listName}/_${this.listName}.ts`, data)
+      this.mirror('src/TypeScript/list/list_model.ts', `${this.path}${this.listName}/model.ts`, data)
+      this.mirror('src/TypeScript/list/list_intent.ts', `${this.path}${this.listName}/intent.ts`, data)
+      this.mirror('src/TypeScript/list/list_view.ts', `${this.path}${this.listName}/view.ts`, data)
+      this.mirror('src/TypeScript/list/item/_item.ts', `${this.path}${this.listName}/item/_item.ts`, data)
+    } else {
+      this.mirror('src/JavaScript/formlist_app.js', `${this.path}app.js`, data)
+      this.mirror('src/JavaScript/form/form_main.js', `${this.path}${this.formName}/_${this.formName}.js`, data)
+      this.mirror('src/JavaScript/form/form_model.js', `${this.path}${this.formName}/model.js`, data)
+      this.mirror('src/JavaScript/form/form_intent.js', `${this.path}${this.formName}/intent.js`, data)
+      this.mirror('src/JavaScript/form/form_view.js', `${this.path}${this.formName}/view.js`, data)
+      this.mirror('src/JavaScript/list/list_main.js', `${this.path}${this.listName}/_${this.listName}.js`, data)
+      this.mirror('src/JavaScript/list/list_model.js', `${this.path}${this.listName}/model.js`, data)
+      this.mirror('src/JavaScript/list/list_intent.js', `${this.path}${this.listName}/intent.js`, data)
+      this.mirror('src/JavaScript/list/list_view.js', `${this.path}${this.listName}/view.js`, data)
+      this.mirror('src/JavaScript/list/item/_item.js', `${this.path}${this.listName}/item/_item.js`, data)
+    }
   }
 
 }

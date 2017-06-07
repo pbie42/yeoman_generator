@@ -1,7 +1,7 @@
 import xs from 'xstream'
 import { div, label, button, form } from '@cycle/dom'
 
-import { textInput } from '../views/form_views'
+import { textInput } from './views'
 
 
 const view = ([{ <% inputs.forEach(i => { %><%= i %>, <% }) %> }, edit]) => {
