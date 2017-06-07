@@ -26,7 +26,7 @@ const questions = [
       type: 'input',
       name: 'path',
       message: 'What is the destination path for this formList?',
-      default: 'src/TypeScript/'
+      default: 'src/'
     }
   ]
 
@@ -84,17 +84,17 @@ class FormList extends Base {
       itemNameL:this.itemName.toLowerCase(),
       itemNameU: capitalizeFirstLetter(this.itemName)
     }
-    this.mirror('src/TypeScript/formlist_app.ts', `${this.path}app.ts`, data)
-		this.mirror('src/TypeScript/form_main.ts', `${this.path}${this.formName}/_${this.formName}.ts`, data)
-    this.mirror('src/TypeScript/form_model.ts', `${this.path}${this.formName}/model.ts`, data)
-    this.mirror('src/TypeScript/form_intent.ts', `${this.path}${this.formName}/intent.ts`, data)
-    this.mirror('src/TypeScript/form_view.ts', `${this.path}${this.formName}/view.ts`, data)
-		this.mirror('src/TypeScript/list_main.ts', `${this.path}${this.listName}/_${this.listName}.ts`, data)
-    this.mirror('src/TypeScript/list_model.ts', `${this.path}${this.listName}/model.ts`, data)
-    this.mirror('src/TypeScript/list_intent.ts', `${this.path}${this.listName}/intent.ts`, data)
-    this.mirror('src/TypeScript/list_view.ts', `${this.path}${this.listName}/view.ts`, data)
-    this.mirror('src/TypeScript/item_main.ts', `${this.path}${this.listName}/item/_item.ts`, data),
-    this.mirror('src/TypeScript/interfaces.ts', `${this.path}/interfaces.ts`, data),
+    this.mirror('src/TypeScript/form/formlist_app.ts', `${this.path}app.ts`, data)
+    this.mirror('src/TypeScript/form/formlist_interfaces.ts', `${this.path}/interfaces.ts`, data)
+		this.mirror('src/TypeScript/form/form_main.ts', `${this.path}${this.formName}/_${this.formName}.ts`, data)
+    this.mirror('src/TypeScript/form/form_model.ts', `${this.path}${this.formName}/model.ts`, data)
+    this.mirror('src/TypeScript/form/form_intent.ts', `${this.path}${this.formName}/intent.ts`, data)
+    this.mirror('src/TypeScript/form/form_view.ts', `${this.path}${this.formName}/view.ts`, data)
+		this.mirror('src/TypeScript/list/list_main.ts', `${this.path}${this.listName}/_${this.listName}.ts`, data)
+    this.mirror('src/TypeScript/list/list_model.ts', `${this.path}${this.listName}/model.ts`, data)
+    this.mirror('src/TypeScript/list/list_intent.ts', `${this.path}${this.listName}/intent.ts`, data)
+    this.mirror('src/TypeScript/list/list_view.ts', `${this.path}${this.listName}/view.ts`, data)
+    this.mirror('src/TypeScript/list/item/item_main.ts', `${this.path}${this.listName}/item/_item.ts`, data)
   }
 
 }
