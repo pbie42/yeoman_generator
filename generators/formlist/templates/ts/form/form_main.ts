@@ -2,7 +2,7 @@ import { HTTPSource } from '@cycle/http';
 import { Stream } from 'xstream'
 import { DOMSource, VNode } from '@cycle/dom';
 
-import { log } from "../../../utils"
+import { log } from "./utils"
 
 import model from "./model"
 import view from "./view"
@@ -15,20 +15,20 @@ export interface formSinks {
   DOM:Stream<VNode>,
   HTTP:Stream<any>,
   history:Stream<any>,
-  newPeople:Stream<State>,
-  editPeople:Stream<State>
+  new<%= itemNameU %>:Stream<State>,
+  edit<%= itemNameU %>:Stream<State>
 }
 
-export default function someForm({ DOM, HTTP }:Sources, edits:any):formSinks {
+export default function <%= formName %>({ DOM, HTTP }:Sources, edits:any):formSinks {
 
   const resets: Stream<{}> = Stream.create()
 
   const { actions } = intent({ DOM, HTTP }, resets, edits)
-  const { states, newPeople, editPeople }:States = model(actions)
+  const { states, new<%= itemNameU %>, edit<%= itemNameU %> }:States = model(actions)
 
-  const newReset:Stream<State> = Stream.merge(newPeople, editPeople)
+  const newReset:Stream<State> = Stream.merge(new<%= itemNameU %>, edit<%= itemNameU %>)
   const edit:Stream<Boolean> = Stream.merge(Stream.empty().startWith(true),
-                        edits.mapTo(false), editPeople.mapTo(true))
+                        edits.mapTo(false), edit<%= itemNameU %>.mapTo(true))
 
   resets.imitate(newReset)
 
@@ -36,8 +36,8 @@ export default function someForm({ DOM, HTTP }:Sources, edits:any):formSinks {
     DOM: Stream.combine(states, edit).map(view),
     HTTP: Stream.empty(),
     history: Stream.empty(),
-    newPeople,
-    editPeople
+    new<%= itemNameU %>,
+    edit<%= itemNameU %>
   }
 
 }
