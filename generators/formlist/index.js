@@ -9,12 +9,12 @@ class Base extends Generator {
 const questions = [
     { type: 'input',
       name: 'formName',
-      message: 'What is the name of the form in this formList?',
+      message: 'What is the name of the FORM in this formList?',
       default: 'someForm'
     },
     { type: 'input',
       name: 'listName',
-      message: 'What is the name of the list in this formList?',
+      message: 'What is the name of the LIST in this formList?',
       default: 'someList'
     },
     { type: 'input',
@@ -84,8 +84,8 @@ class FormList extends Base {
       itemNameL:this.itemName.toLowerCase(),
       itemNameU: capitalizeFirstLetter(this.itemName)
     }
-    this.mirror('src/TypeScript/form/formlist_app.ts', `${this.path}app.ts`, data)
-    this.mirror('src/TypeScript/form/formlist_interfaces.ts', `${this.path}/interfaces.ts`, data)
+    this.mirror('src/TypeScript/formlist_app.ts', `${this.path}app.ts`, data)
+    this.mirror('src/TypeScript/formlist_interfaces.ts', `${this.path}/interfaces.ts`, data)
 		this.mirror('src/TypeScript/form/form_main.ts', `${this.path}${this.formName}/_${this.formName}.ts`, data)
     this.mirror('src/TypeScript/form/form_model.ts', `${this.path}${this.formName}/model.ts`, data)
     this.mirror('src/TypeScript/form/form_intent.ts', `${this.path}${this.formName}/intent.ts`, data)
@@ -94,7 +94,7 @@ class FormList extends Base {
     this.mirror('src/TypeScript/list/list_model.ts', `${this.path}${this.listName}/model.ts`, data)
     this.mirror('src/TypeScript/list/list_intent.ts', `${this.path}${this.listName}/intent.ts`, data)
     this.mirror('src/TypeScript/list/list_view.ts', `${this.path}${this.listName}/view.ts`, data)
-    this.mirror('src/TypeScript/list/item/item_main.ts', `${this.path}${this.listName}/item/_item.ts`, data)
+    this.mirror('src/TypeScript/list/item/_item.ts', `${this.path}${this.listName}/item/_item.ts`, data)
   }
 
 }

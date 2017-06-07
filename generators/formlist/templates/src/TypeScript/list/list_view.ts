@@ -6,7 +6,7 @@ import { State } from '../interfaces';
 
 export const view = ([<%= itemNameL %>list, state, edit]:[Array<VNode>, { requests }, State | String]) => {
   return div([
-    h1('Users'),
+    h1('<%= itemNameU %>'),
     ...show<%= itemNameU %>(<%= itemNameL %>list, state.requests.get<%= itemNameU %>),
     showSaving(state.requests.save<%= itemNameU %>)
   ])

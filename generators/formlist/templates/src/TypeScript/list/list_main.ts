@@ -18,11 +18,11 @@ export default function List({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU
   const { actions, requests, add<%= itemNameU %>, <%= itemNameL %>EditSuccess }:ListIntent = intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> })
   const { states }:{ states:Stream<{}> } = model(actions)
 
-  const list<%= itemNameU %>:Stream<Array<{}>> = Collection(<%= itemNameU %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: Stream.of(<%= itemNameL %>) })), item => item.remove)
+  const list<%= itemNameU %>:Stream<Array<{}>> = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: Stream.of(<%= itemNameL %>) })), item => item.remove)
   const list<%= itemNameU %>Vtrees:Stream<Array<VNode>> = Collection.pluck(list<%= itemNameU %>, item => item.DOM)
   const edits:Stream<Array<State>> = Collection.merge(list<%= itemNameU %>, item => item.edits)
 
-  const edit:Stream<State | String> = <%= itemNameU %>EditSuccess.compose(sampleCombine(edit<%= itemNameU %>)).map(([_, edit]) => edit)
+  const edit:Stream<State | String> = <%= itemNameL %>EditSuccess.compose(sampleCombine(edit<%= itemNameU %>)).map(([_, edit]) => edit)
 
   return {
     DOM: Stream.combine(list<%= itemNameU %>Vtrees, states, edit.startWith('')).map(view),
