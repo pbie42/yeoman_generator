@@ -7,18 +7,27 @@ class Base extends Generator {
 }
 
 const questions = [
-    { type: 'input',
-      name: 'name',
-      message: 'What is the name of this form?',
-      default: 'someForm'
-    },
-    {
-      type: 'input',
-      name: 'path',
-      message: 'What is the destination path for this form?',
-      default: 'src/'
+  {
+    type: 'list',
+    name: 'format',
+    message: 'Would you like the files output in TypeScript or JavaScript?',
+    choices: ['TypeScript', 'JavaScript'],
+    filter: function (val) {
+      return val.toLowerCase();
     }
-  ]
+  },
+  { type: 'input',
+    name: 'name',
+    message: 'What is the name of this form?',
+    default: 'someForm'
+  },
+  {
+    type: 'input',
+    name: 'path',
+    message: 'What is the destination path for this form?',
+    default: 'src/'
+  }
+]
 
 const names = [
     {
@@ -43,9 +52,12 @@ class Form extends Base {
    return this.prompt(questions).then((answers) => {
       if (this.formother) this.prompting()
       this.formName = answers.name
-      this.path = answers.path
+      this.format = answers.format
+      if (answers.path.endsWith('/')) this.path = answers.path
+      else this.path = answers.path + '/'
       this.log(this.formName)
       this.log(this.path)
+      this.log(this.format)
    })
   }
 
@@ -63,11 +75,11 @@ class Form extends Base {
   }
 
   writing() {
-		this.mirror('src/form_main.ts', `${this.path}_${this.formName}.ts`, { name: this.formName })
-    this.mirror('src/form_model.ts', `${this.path}model.ts`, { inputs: this.inputs })
-    this.mirror('src/form_intent.ts', `${this.path}intent.ts`, { inputs: this.inputs })
-    this.mirror('src/form_view.ts', `${this.path}view.ts`, { inputs: this.inputs })
-    // this.mirror('src/form_views.ts', `${this.path}views.js`)
+    let fileType = this.format === 'typescript' ? 'ts' : 'js'
+		this.mirror(`src/${this.format}/form_main.${filetype}`, `${this.path}_${this.formName}.${filetype}`, { name: this.formName })
+    this.mirror(`src/${this.format}/form_model.${filetype}`, `${this.path}model.${filetype}`, { inputs: this.inputs })
+    this.mirror(`src/${this.format}/form_intent.${filetype}`, `${this.path}intent.${filetype}`, { inputs: this.inputs })
+    this.mirror(`src/${this.format}/form_view.${filetype}`, `${this.path}view.${filetype}`, { inputs: this.inputs })
   }
 
 }
