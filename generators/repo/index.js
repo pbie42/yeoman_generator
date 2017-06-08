@@ -7,25 +7,40 @@ class Base extends Generator {
 }
 
 const questions = [
-    {
-      type: 'input',
-      name: 'path',
-      message: 'What is the destination path for the views file?',
-      default: 'src/'
+  {
+    type: 'list',
+    name: 'format',
+    message: 'Would you like the files output in TypeScript or JavaScript?',
+    choices: ['TypeScript', 'JavaScript'],
+    filter: function (val) {
+      return val.toLowerCase();
     }
-  ]
+  },
+  {
+    type: 'input',
+    name: 'path',
+    message: 'What is the destination path for the repo file?',
+    default: 'src/'
+  }
+]
 
-class Views extends Base {
+class Repo extends Base {
 
   prompting() {
    return this.prompt(questions).then((answers) => {
-      this.path = answers.path
+      this.format = answers.format
+      if (answers.path.endsWith('/')) this.path = answers.path
+      else this.path = answers.path + '/'
+      this.log(this.format)
       this.log(this.path)
    })
   }
 
-  writing() { this.mirror('src/views.ts', `${this.path}views.ts`) }
+  writing() {
+    let fileType = this.format === 'typescript' ? 'ts' : 'js'
+    this.mirror(`src/${this.format}/repo.${fileType}`, `${this.path}repo.${fileType}`)
+  }
 
 }
 
-module.exports = Views
+module.exports = Repo

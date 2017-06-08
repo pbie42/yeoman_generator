@@ -3,6 +3,8 @@ import { HTTPSource } from '@cycle/http'
 
 import { log, sample, bind, assign } from '../utils'
 
+type StreamArg = { request, action} | Function
+
 interface PostRequest {
     method:string
     headers:{ 'Content-Type':string }
@@ -27,6 +29,14 @@ interface RequestAction {
   action:Stream<Function>
 }
 
+interface GenQuery {
+  request:any
+  actions:any[]
+  response: {
+    [x:string]:Stream<HTTPSource>
+  }
+}
+
 interface Status {
   pending: {
     status:string
@@ -41,13 +51,11 @@ interface Status {
 
 interface State {
   requests: {
-    [id: string]: {
+    [x:string]: {
       status:string
     }
   }
 }
-
-type StreamArg = { request, action} | Function
 
 export const Status:Status = { pending: { status: "Pending" }, success: { status: "Success" }, failure: { status: "Failure" } }
 
@@ -66,14 +74,6 @@ function queryFailure(category:string, state):State {
 function getStreamCtr(streamArg:StreamArg):Array<Function> {
   if (typeof streamArg == "function") { return [ streamArg, streamArg ] }
   return [ streamArg.request, streamArg.action ]
-}
-
-interface GenQuery {
-  request:any
-  actions:any[]
-  response: {
-    [x:string]:Stream<HTTPSource>
-  }
 }
 
 function genQuery(category:string, request:PostRequest | GetRequest, streamArg:StreamArg, HTTP:HTTPSource):GenQuery {
@@ -126,12 +126,12 @@ function postOn(url:string, category:string, stream:Stream<any>):Function {
 function queryBuilder(url:string, category:string, nowFn:Function, onFn:Function):NowOn {
   return {
     now():Function { return nowFn(url, category) },
-    on(stream):Function { return onFn(url, category, stream) }
+    on(stream:Stream<any>):Function { return onFn(url, category, stream) }
   }
 }
 
 export const Repo = {
-  setup(...queryCtrs):Function {
+  setup(...queryCtrs:Array<Function>):Function {
     return (HTTP:HTTPSource) => {
       const queries = queryCtrs.map(ctr => ctr(HTTP))
       return {
