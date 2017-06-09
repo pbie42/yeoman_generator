@@ -1,23 +1,23 @@
 import { div, h1, h4 } from '@cycle/dom'
 
-import { Status } from "../repo"
+import { Status } from "./repo"
 
-export const view = ([phoneslist, state]) => {
+export const view = ([<%= itemNameL %>list, state]) => {
   return div([
-    h1('Users'),
-    ...showPhones(phoneslist, state.requests.getPhones),
-    showSaving(state.requests.savePhones)
+    h1('<%= itemNameU %>'),
+    ...show<%= itemNameU %>(<%= itemNameL %>list, state.requests.get<%= itemNameU %>),
+    showSaving(state.requests.save<%= itemNameU %>)
   ])
 }
 
-function showPhones(phoneslist, status) {
+function show<%= itemNameU %>(<%= itemNameL %>list, status) {
   if (status === undefined) return [ h4('loading...') ]
   if (status === Status.pending) { return [ h4('loading...') ]}
-  return  phoneslist
+  return  <%= itemNameL %>list
 }
 
 function showSaving(status) {
   if (status === undefined) return div( )
-  if (status === Status.pending) { return h4('adding phones...')}
+  if (status === Status.pending) { return h4('adding <%= itemNameL %>...')}
   return  div()
 }

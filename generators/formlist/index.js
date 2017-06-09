@@ -1,4 +1,5 @@
 const Generator = require('yeoman-generator')
+import { capitalizeFirstLetter } from '../helpers'
 
 class Base extends Generator {
 	mirror(name, dest, data={}) {
@@ -108,10 +109,6 @@ class FormList extends Base {
     if (this.format === 'typescript') this.mirror(`src/typescript/formlist_interfaces.${fileType}`, `${this.path}/interfaces.${fileType}`, data)
   }
 
-}
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1)
 }
 
 module.exports = FormList

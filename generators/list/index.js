@@ -1,4 +1,5 @@
 const Generator = require('yeoman-generator')
+const { capitalizeFirstLetter } = require('../helpers')
 
 class Base extends Generator {
 	mirror(name, dest, data={}) {
@@ -24,8 +25,8 @@ const questions = [
   {
     type: 'input',
     name: 'path',
-    message: 'What is the destination path?',
-    default: 'src/'
+    message: 'What is the destination path including the desired folder name?',
+    default: 'src/someList'
   },
   { type: 'input',
     name: 'itemName',
@@ -38,7 +39,7 @@ const names = [
     {
       type: 'input',
       name: 'inputs',
-      message: "What is the name of the list item's datafield?",
+      message: "What is a key name in the list item's datafield?",
       default: 'name'
     },
     {
@@ -61,7 +62,7 @@ class List extends Base {
       this.itemName = answers.itemName
       if (answers.path.endsWith('/')) this.path = answers.path
       else this.path = answers.path + '/'
-      this.log(this.formName)
+      this.log(this.listName)
       this.log(this.path)
       this.log(this.format)
    })
@@ -87,7 +88,7 @@ class List extends Base {
       itemNameL:this.itemName.toLowerCase(),
       itemNameU: capitalizeFirstLetter(this.itemName)
     }
-    let fileType = this.format === 'typescript' ? 'ts' : 'js'
+    let filetype = this.format === 'typescript' ? 'ts' : 'js'
     this.mirror(`src/${this.format}/list_main.${filetype}`, `${this.path}_${this.listName}.${filetype}`, data)
     this.mirror(`src/${this.format}/list_model.${filetype}`, `${this.path}model.${filetype}`, data)
     this.mirror(`src/${this.format}/list_intent.${filetype}`, `${this.path}intent.${filetype}`, data)

@@ -15,10 +15,8 @@ export default function <%= itemNameL %>Item({ DOM, <%= itemNameL %>, _idx}) {
 
   var sinks = {
     DOM: items.map(([{ <% inputs.forEach(i => { %><%= i %>, <% }) %> }, _idx]) =>
-      div({ attrs: { 'data-id': _idx } }, [
-        <% inputs.forEach(i => { %>
-        p(<%= i %>),
-        <% }) %>
+      div({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
+        p(`<%= i %>: ${<%= i %>}`),<% }) %>
         button('.edit', 'Edit'),
         button('.remove', 'Remove')
       ])

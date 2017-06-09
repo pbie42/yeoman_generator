@@ -2,28 +2,28 @@ import xs from 'xstream'
 import sampleCombine from 'xstream/extra/sampleCombine'
 import Collection from "../collections"
 
-import { log, sample, bind } from '../../utils'
-import phonesItem from './item/_item'
+import { log, sample, bind } from './utils'
+import <%= itemNameL %>Item from './item/_item'
 
-import { model, Status } from "./model"
+import { model } from "./model"
 import { intent } from "./intent"
 import { view } from "./view"
 
-export default function List({ DOM, HTTP }) {
+export default function <%= name %>({ DOM, HTTP }) {
 
   const removeProxy = xs.create()
 
-  const { actions, requests, addPhones, phonesRemoveSuccess } = intent({ DOM, HTTP }, removeProxy)
+  const { actions, requests, add<%= itemNameU %>, <%= itemNameL %>RemoveSuccess } = intent({ DOM, HTTP }, removeProxy)
   const { states } = model(actions)
 
-  const listPhones = Collection(phonesItem, { DOM }, addPhones.map(phones => ({ phones: xs.of(phones) })), item => item.remove)
-  const listPhonesVtrees = Collection.pluck(listPhones, item => item.DOM)
-  const remove = Collection.merge(listPhones, item => item.removePhones).map(log)
+  const list<%= itemNameU %> = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: xs.of(<%= itemNameL %>) })), item => item.remove)
+  const list<%= itemNameU %>Vtrees = Collection.pluck(list<%= itemNameU %>, item => item.DOM)
+  const remove = Collection.merge(list<%= itemNameU %>, item => item.remove<%= itemNameU %>).map(log)
 
   removeProxy.imitate(remove)
 
   return {
-    DOM: xs.combine(listPhonesVtrees, states).map(view),
+    DOM: xs.combine(list<%= itemNameU %>Vtrees, states).map(view),
     HTTP: requests,
     history: xs.empty(),
   }

@@ -1,4 +1,4 @@
-import { log, sample, bind, assign } from '../../utils'
+import { log, sample, bind, assign } from './utils'
 
 
 export function model(actions) {
