@@ -80,6 +80,7 @@ class Form extends Base {
     this.mirror(`src/${this.format}/form_model.${filetype}`, `${this.path}model.${filetype}`, { inputs: this.inputs })
     this.mirror(`src/${this.format}/form_intent.${filetype}`, `${this.path}intent.${filetype}`, { inputs: this.inputs })
     this.mirror(`src/${this.format}/form_view.${filetype}`, `${this.path}view.${filetype}`, { inputs: this.inputs })
+    if (this.format === 'typescript') this.mirror(`src/typescript/form_interfaces.${fileType}`, `${this.path}/interfaces.${fileType}`, data)
   }
 
 }

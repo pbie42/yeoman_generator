@@ -2,10 +2,8 @@ import { Stream } from 'xstream'
 import { HTTPSource } from '@cycle/http'
 import { DOMSource, VNode } from '@cycle/dom'
 
-export interface State {
-  name: string,
-  email: string,
-  password: string
+export interface State {<% inputs.forEach(i => { %>
+  <%= i %>:string,<% }) %>
 }
 
 export interface Sources {
@@ -18,12 +16,6 @@ export interface FormSinks {
   HTTP: Stream<any>,
   history: Stream<string>,
   newSubmit: Stream<any>
-}
-
-export interface Data {
-  name:string
-  email:string
-  password:string
 }
 
 export interface Queries {

@@ -6,27 +6,17 @@ import model from "./model"
 import view from "./view"
 import intent from "./intent"
 
-interface Sources {
-  DOM:DOMSource,
-  HTTP:HTTPSource
-}
+import { Sources, FormSinks, Intent, Model, State } from './interfaces'
 
-interface FormSinks {
-  DOM: Stream<VNode>,
-  HTTP: Stream<any>,
-  history: Stream<any>,
-  newSubmit: Stream<any>
-}
-
-export default function someForm({DOM, HTTP}: Sources): FormSinks {
+export default function <%= name %>({DOM, HTTP}: Sources): FormSinks {
 
   const resets: Stream<{}> = Stream.create()
   const submits: Stream<{}> = Stream.create()
 
-  const { actions, requests, submitSuccess } = intent({ DOM, HTTP }, submits, resets)
-  const { states, newSubmit } = model(actions)
+  const { actions, requests, submitSuccess }:Intent = intent({ DOM, HTTP }, submits, resets)
+  const { states, newSubmit }:Model = model(actions)
 
-  const newReset = Stream.merge(newSubmit)
+  const newReset:Stream<State> = Stream.merge(newSubmit)
 
   submits.imitate(newSubmit)
   resets.imitate(newReset)

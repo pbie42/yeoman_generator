@@ -1,7 +1,7 @@
 import { Stream } from 'xstream'
 import { div, label, button, form, VNode } from '@cycle/dom'
 
-import { textInput } from './views'
+import { textInput } from '../../coolForm/views'
 import { State } from '../interfaces'
 
 const view = ([{ <% inputs.forEach(i => { %><%= i %>, <% }) %> }, edit]:[ State, Boolean ]):VNode => {

@@ -1,6 +1,6 @@
 import { Stream } from 'xstream'
-import { div } from '@cycle/dom'
-import { assign } from './utils'
+import { div, VNode } from '@cycle/dom'
+import { assign } from '../../utils'
 
 import <%= formName %> from './<%= formName %>/_<%= formName %>'
 import <%= listName %> from './<%= listName %>/_<%= listName %>'
@@ -17,7 +17,7 @@ export default function app({DOM, HTTP}:Sources):Sinks {
 
   editsProxy.imitate(list.edits)
 
-  const view = ([form, list]) =>
+  const view = ([form, list]:Array<VNode>):VNode =>
     div([
       form,
       list
