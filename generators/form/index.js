@@ -24,25 +24,31 @@ const questions = [
   {
     type: 'input',
     name: 'path',
-    message: 'What is the destination path for this form?',
-    default: 'src/'
+    message: 'What is the destination path for this form? (Include desired folder name)',
+    default: 'src/someForm'
+  },
+  {
+    type: 'confirm',
+    name: 'views',
+    message: 'Add views file? (Can also add separetly with yo paul:views)',
+    default: 'true'
   }
 ]
 
 const names = [
-    {
-      type: 'input',
-      name: 'inputs',
-      message: 'What is the name of the input?',
-      default: '.input'
-    },
-    {
-      type: 'confirm',
-      name: 'another',
-      message: "Is there another input?",
-      default: true
-    }
-  ]
+  {
+    type: 'input',
+    name: 'inputs',
+    message: 'What is the name of the input in this form?',
+    default: 'input'
+  },
+  {
+    type: 'confirm',
+    name: 'another',
+    message: "Is there another input?",
+    default: true
+  }
+]
 
   const inputs = []
 
@@ -55,6 +61,7 @@ class Form extends Base {
       this.format = answers.format
       if (answers.path.endsWith('/')) this.path = answers.path
       else this.path = answers.path + '/'
+      this.views = answers.views
       this.log(this.formName)
       this.log(this.path)
       this.log(this.format)
@@ -75,12 +82,13 @@ class Form extends Base {
   }
 
   writing() {
-    let fileType = this.format === 'typescript' ? 'ts' : 'js'
+    let filetype = this.format === 'typescript' ? 'ts' : 'js'
 		this.mirror(`src/${this.format}/form_main.${filetype}`, `${this.path}_${this.formName}.${filetype}`, { name: this.formName })
     this.mirror(`src/${this.format}/form_model.${filetype}`, `${this.path}model.${filetype}`, { inputs: this.inputs })
     this.mirror(`src/${this.format}/form_intent.${filetype}`, `${this.path}intent.${filetype}`, { inputs: this.inputs })
     this.mirror(`src/${this.format}/form_view.${filetype}`, `${this.path}view.${filetype}`, { inputs: this.inputs })
-    if (this.format === 'typescript') this.mirror(`src/typescript/form_interfaces.${fileType}`, `${this.path}/interfaces.${fileType}`, data)
+    if (this.views === true) this.mirror(`src/${this.format}/form_views.${filetype}`, `${this.path}views.${filetype}`, { inputs: this.inputs })
+    if (this.format === 'typescript') this.mirror(`src/typescript/form_interfaces.${filetype}`, `${this.path}/interfaces.${filetype}`, { inputs: this.inputs })
   }
 
 }

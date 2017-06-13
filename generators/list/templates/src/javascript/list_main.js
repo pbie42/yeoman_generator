@@ -18,7 +18,7 @@ export default function <%= name %>({ DOM, HTTP }) {
 
   const list<%= itemNameU %> = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: xs.of(<%= itemNameL %>) })), item => item.remove)
   const list<%= itemNameU %>Vtrees = Collection.pluck(list<%= itemNameU %>, item => item.DOM)
-  const remove = Collection.merge(list<%= itemNameU %>, item => item.remove<%= itemNameU %>).map(log)
+  const remove = Collection.merge(list<%= itemNameU %>, item => item.remove<%= itemNameU %>)
 
   removeProxy.imitate(remove)
 

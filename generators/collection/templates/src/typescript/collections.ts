@@ -12,7 +12,7 @@ interface Collection {
   pluck:Function
 }
 
-interface CollectionStream {
+interface ItemStream {
   DOM:DOMSource
   edits?:Stream<any>
   remove?:Stream<any>
@@ -61,11 +61,6 @@ function makeIdGen(): () => number {
 }
 
 function makeItem(component, sources:Sources, idGen:Function):NewItem {
-  console.log(`component`, component)
-  console.log(`sources`, sources)
-  sources.pets.addListener({
-    next: i => console.log(`petsItem`, i)
-  })
   const newId:number = idGen()
   const newItem:NewItem = isolate(component, newId.toString())(sources)
   newItem._id = newId
@@ -81,7 +76,7 @@ function collection(config:Config, items = []):CollectMethods {
       newItem._remove = typeof removeSelector === 'function' ? removeSelector(newItem).take(1).mapTo(newItem) : Stream.empty()
       return collection(config, items.concat(newItem))
     },
-    remove(item:CollectionStream):CollectMethods {
+    remove(item:ItemStream):CollectMethods {
       return collection(config, items.filter(x => x !== item))
     },
     asArray():Array<Function> { return items.slice() },
@@ -91,7 +86,7 @@ function collection(config:Config, items = []):CollectMethods {
   }
 }
 
-const Collection = <Collection>function(component, sources = {}, adds = Stream.empty(), removeSelector = noop, clears = Stream.empty()):Stream<Array<CollectionStream>> {
+const Collection = <Collection>function(component, sources = {}, adds = Stream.empty(), removeSelector = noop, clears = Stream.empty()):Stream<Array<ItemStream>> {
 
   const addActions:Stream<Function> = adds.map(extraSources => bind(addToCollection, extraSources))
 
@@ -102,12 +97,12 @@ const Collection = <Collection>function(component, sources = {}, adds = Stream.e
   const actions:Stream<Function> = Stream.merge(addActions, removeActions, clearActions)
   const emptyCol:CollectMethods = collection({ component, sources, removeSelector, idGen: makeIdGen() })
 
-  const collectionStream:Stream<Array<CollectionStream>> =
+  const collectionStream:Stream<Array<ItemStream>> =
     actions
       .fold((col, action) => action(col), emptyCol)
       .map(col => col.asArray())
 
-  const removes:Stream<Array<CollectionStream>> = Collection.merge(collectionStream, item => item._remove)
+  const removes:Stream<Array<ItemStream>> = Collection.merge(collectionStream, item => item._remove)
 
   removeProxy.imitate(removes)
 
@@ -116,16 +111,12 @@ const Collection = <Collection>function(component, sources = {}, adds = Stream.e
 
 function addToCollection(extraSources:{ [x:string]: Stream<any>}, coll:CollectMethods):CollectMethods {
   if (Array.isArray(extraSources)){
-    const test = extraSources.reduce((collection, sources) => collection.add(sources), coll)
-    test.addListener({
-      next: i => console.log(`test`, i)
-    })
-    return test
+    return extraSources.reduce((collection, sources) => collection.add(sources), coll)
   }
   return coll.add(extraSources)
 }
 
-function removeFromCollection(item:CollectionStream, coll:CollectMethods):CollectMethods { return coll.remove(item) }
+function removeFromCollection(item:ItemStream, coll:CollectMethods):CollectMethods { return coll.remove(item) }
 
 function clearCollection(coll:CollectMethods):CollectMethods { return coll.clear() }
 
@@ -133,16 +124,16 @@ function assignKey(x:VNode):VNode { return isVtree(x) && x.key == null ? assign(
 
 function memorizeStream(fn:Function):Function {
   const cache:Object = {}
-  return function(item:CollectionStream):{ [x:string]:Stream<Function> } {
+  return function(item:ItemStream):{ [x:string]:Stream<Function> } {
     const key:number = item._id
     if (cache[key] === undefined) { cache[key] = fn(item) }
     return cache[key]
   }
 }
 
-Collection.pluck = function(collectionStream:Stream<Array<{ [x:number]:CollectionStream }>>, pluckSelector:Function):Stream<Array<{ [x:number]:VNode }>> {
+Collection.pluck = function(collectionStream:Stream<Array<{ [x:number]:ItemStream }>>, pluckSelector:Function):Stream<Array<{ [x:number]:VNode }>> {
 
-  const pluck = (item:CollectionStream):Stream<VNode> => pluckSelector(item).map(assignKey).remember()
+  const pluck = (item:ItemStream):Stream<VNode> => pluckSelector(item).map(assignKey).remember()
 
   const plucked:Function = memorizeStream(pluck)
 
@@ -158,7 +149,7 @@ Collection.pluck = function(collectionStream:Stream<Array<{ [x:number]:Collectio
 
 Collection.merge = function(collectionStream, mergeSelector):Stream<Array<{}>> {
 
-  const merge = (item:CollectionStream):Stream<VNode> =>
+  const merge = (item:ItemStream):Stream<VNode> =>
     Stream.merge(mergeSelector(item).map(assignKey), Stream.never())
 
   const merged:Function = memorizeStream(merge)

@@ -1,7 +1,7 @@
 import xs from 'xstream'
 import { <% inputs.forEach(i => { %><%= i %>Change, <% }) %>submitFn, clear } from './model'
-import { Repo } from "../repo"
-import { log, bind } from '../utils'
+import { Repo } from "./repo"
+import { log, bind } from './utils'
 
 export default function intent(sources, submits, reset) {
 

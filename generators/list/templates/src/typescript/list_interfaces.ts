@@ -53,7 +53,7 @@ export interface ItemSources {
 }
 
 export interface ItemSinks {
-  DOM: Stream<VNode>
-  remove: Stream<Event>
-  remove<%= itemNameU %>: Stream<{ Data }>
+  DOM?: Stream<VNode>
+  remove?: Stream<Event>
+  remove<%= itemNameU %>?: Stream<{ Data }>
 }

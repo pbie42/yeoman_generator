@@ -37,8 +37,8 @@ class Views extends Base {
   }
 
   writing() {
-    let fileType = this.format === 'typescript' ? 'ts' : 'js'
-    this.mirror(`src/${this.format}/views.${filetype}`, `${this.path}views.${filetype}`)
+    let filetype = this.format === 'typescript' ? 'ts' : 'js'
+    this.mirror(`src/${this.format}/form_views.${filetype}`, `${this.path}views.${filetype}`)
   }
 
 }

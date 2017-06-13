@@ -94,7 +94,7 @@ class List extends Base {
     this.mirror(`src/${this.format}/list_intent.${filetype}`, `${this.path}intent.${filetype}`, data)
     this.mirror(`src/${this.format}/list_view.${filetype}`, `${this.path}view.${filetype}`, data)
     this.mirror(`src/${this.format}/item/_item.${filetype}`, `${this.path}/item/_item.${filetype}`, data)
-    if (this.format === 'typescript') this.mirror(`src/typescript/list_interfaces.${fileType}`, `${this.path}/interfaces.${fileType}`, data)
+    if (this.format === 'typescript') this.mirror(`src/typescript/list_interfaces.${filetype}`, `${this.path}/interfaces.${filetype}`, data)
   }
 
 }

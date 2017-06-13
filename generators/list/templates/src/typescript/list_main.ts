@@ -20,9 +20,9 @@ export default function <%= name %>({ DOM, HTTP }:ListSources):ListSinks {
   const { actions, requests, add<%= itemNameU %>, <%= itemNameL %>RemoveSuccess }:ListIntent = intent({ DOM, HTTP }, removeProxy)
   const { states }:Model = model(actions)
 
-  const list<%= itemNameU %>:ItemSinks = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: Stream.of(<%= itemNameU %>) })), item => item.remove)
+  const list<%= itemNameU %>:ItemSinks = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: Stream.of(<%= itemNameL %>) })), item => item.remove)
   const list<%= itemNameU %>Vtrees:Stream<Array<VNode>> = Collection.pluck(list<%= itemNameU %>, item => item.DOM)
-  const remove:Stream<Array<any>> = Collection.merge(list<%= itemNameU %>, item => item.remove<%= itemNameU %>).map(log)
+  const remove:Stream<Array<any>> = Collection.merge(list<%= itemNameU %>, item => item.remove<%= itemNameU %>)
 
   removeProxy.imitate(remove)
 
