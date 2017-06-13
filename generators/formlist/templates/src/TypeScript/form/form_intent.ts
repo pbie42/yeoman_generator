@@ -3,7 +3,7 @@ import { Stream } from 'xstream'
 import { nameChange, typeChange, colorChange, submitFn, clear, edit, editFn } from './model'
 
 import { log, bind } from './utils'
-import { FormIntent, Sources } from './interfaces';
+import { FormIntent, Sources } from '../interfaces';
 
 export default function intent({ DOM, HTTP }:Sources, reset:Stream<{}>, edits:Stream<{}>):FormIntent {
 
@@ -21,7 +21,7 @@ export default function intent({ DOM, HTTP }:Sources, reset:Stream<{}>, edits:St
 
   const editSubmit:Stream<Function> = editEv.mapTo(editFn)
 
-  const actions:Stream<Function | {}> = Stream.merge<% inputs.forEach(i => { %><%= i %>, <% }) %>submit, reset.mapTo(clear), edits.map(data => bind(edit, data)), editSubmit)
+  const actions:Stream<Function | {}> = Stream.merge(<% inputs.forEach(i => { %><%= i %>, <% }) %>submit, reset.mapTo(clear), edits.map(data => bind(edit, data)), editSubmit)
 
   return { actions }
 }

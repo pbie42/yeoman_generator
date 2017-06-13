@@ -1,7 +1,7 @@
 import { Stream } from 'xstream'
 
-import { Repo } from "../../repo"
-import { log, sample } from '../../../utils'
+import { Repo } from "./repo"
+import { log, sample } from './utils'
 import { ListIntent, ListSources, Query, Queries, State } from '../interfaces'
 
 

@@ -2,9 +2,9 @@ import { Stream } from 'xstream'
 import { HTTPSource } from '@cycle/http'
 import { DOMSource, VNode } from '@cycle/dom'
 import sampleCombine from 'xstream/extra/sampleCombine'
-import Collection from "../../collections"
+import Collection from "./collections"
 
-import { log, sample, bind } from '../../../utils'
+import { log, sample, bind } from './utils'
 import <%= itemNameL %>Item from './item/_item'
 
 import { model } from "./model"

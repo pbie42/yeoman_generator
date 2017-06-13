@@ -5,7 +5,7 @@ import view from "./view"
 import intent from "./intent"
 
 import { log } from "./utils"
-import { FormSinks, State, FormStates, FormIntent, Sources } from './interfaces'
+import { FormSinks, State, FormStates, FormIntent, Sources } from '../interfaces'
 
 export default function <%= formName %>({ DOM, HTTP }:Sources, edits:Stream<{}>):FormSinks {
 

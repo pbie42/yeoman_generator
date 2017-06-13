@@ -1,7 +1,7 @@
 import { Stream } from 'xstream'
 import { log, sample, assign } from './utils'
 
-import { State, FormStates, Data } from './interfaces'
+import { State, FormStates, Data } from '../interfaces'
 
 export default function model(actions:Stream<Function | { name?:string }>):FormStates {
   const states:Stream<State> = actions.fold((state:State, action:Function):State => action(state), init())
