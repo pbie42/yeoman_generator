@@ -82,7 +82,6 @@ export interface ListIntent {
   actions:Stream<Function>
   requests: Stream<Query>
   add<%= itemNameU %>:Stream<State | {}>
-  <%= itemNameL %>EditSuccess:Stream<Array<State>>
 }
 
 export interface ItemSources {

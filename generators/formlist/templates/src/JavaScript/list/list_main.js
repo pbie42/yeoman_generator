@@ -11,17 +11,15 @@ import { view } from "./view"
 
 export default function List({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> }) {
 
-  const { actions, requests, add<%= itemNameU %>, <%= itemNameL %>EditSuccess } = intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> })
+  const { actions, requests, add<%= itemNameU %> } = intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> })
   const { states } = model(actions)
 
-  const list<%= itemNameU %> = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: xs.of(<%= itemNameL %>) })), item => item.remove)
+  const list<%= itemNameU %> = Collection(<%= itemNameL %>Item, { DOM }, add<%= itemNameU %>.map(<%= itemNameL %> => ({ <%= itemNameL %>: xs.of(<%= itemNameL %>) })), item => item.remove, edit<%= itemNameU %>)
   const list<%= itemNameU %>Vtrees = Collection.pluck(list<%= itemNameU %>, item => item.DOM)
   const edits = Collection.merge(list<%= itemNameU %>, item => item.edits)
 
-  const edit = <%= itemNameL %>EditSuccess.compose(sampleCombine(edit<%= itemNameU %>)).map(([_, edit]) => edit)
-
   return {
-    DOM: xs.combine(list<%= itemNameU %>Vtrees, states, edit.startWith('')).map(view),
+    DOM: xs.combine(list<%= itemNameU %>Vtrees, states).map(view),
     HTTP: requests,
     history: xs.empty(),
     edits

@@ -4,7 +4,7 @@ import { Status } from "./repo"
 import { State } from '../interfaces';
 
 
-export const view = ([<%= itemNameL %>list, state, edit]:[Array<VNode>, { requests }, State | String]) => {
+export const view = ([<%= itemNameL %>list, state]:[Array<VNode>, { requests }]) => {
   return div([
     h1('<%= itemNameU %>'),
     ...show<%= itemNameU %>(<%= itemNameL %>list, state.requests.get<%= itemNameU %>),

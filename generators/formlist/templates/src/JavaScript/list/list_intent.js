@@ -14,11 +14,11 @@ export function intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> })
   )(HTTP)
 
   const loaded<%= itemNameU %> = queries.responses.get<%= itemNameU %>.map(<%= itemNameL %> => xs.of(...<%= itemNameL %>)).flatten()
+  const <%= itemNameL %>EditSuccess = queries.responses.edit<%= itemNameU %>.map(<%= itemNameL %> => xs.of(...<%= itemNameL %>)).flatten()
   const <%= itemNameL %>SaveSuccess = queries.responses.save<%= itemNameU %>
-  const <%= itemNameL %>EditSuccess = queries.responses.edit<%= itemNameU %>
 
   const actions = queries.actions
-  const add<%= itemNameU %> = xs.merge(sample(new<%= itemNameU %>, <%= itemNameL %>SaveSuccess), loaded<%= itemNameU %>)
+  const add<%= itemNameU %> = xs.merge(sample(new<%= itemNameU %>, <%= itemNameL %>SaveSuccess), loaded<%= itemNameU %>, <%= itemNameL %>EditSuccess)
 
-  return { actions, requests: queries.requests, add<%= itemNameU %>, <%= itemNameL %>EditSuccess }
+  return { actions, requests: queries.requests, add<%= itemNameU %> }
 }
