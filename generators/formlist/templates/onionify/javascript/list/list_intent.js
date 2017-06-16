@@ -1,9 +1,9 @@
 import xs from 'xstream'
 import delay from 'xstream/extra/delay'
 
-import { sample } from '../utils'
+import { sample } from './utils'
 
-import { Repo } from "../repo"
+import { Repo } from "./repo"
 
 export function intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> }) {
 
