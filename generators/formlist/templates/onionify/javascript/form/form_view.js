@@ -5,8 +5,8 @@ import { textInput } from '../views'
 
 
 const view = ([{ <%= itemNameL %> }, edit]) => {
+  console.log(`stateView`, <%= itemNameL %>)
     const { <% inputs.forEach(i => { %><%= i %>, <% }) %> } = <%= itemNameL %>
-    console.log(`state:`, { <% inputs.forEach(i => { %><%= i %>, <% }) %> })
     return form({attrs: { onsubmit: "return false" }}, [<% inputs.forEach(i => { %>
       div([
         label({ attrs: { for: '#<%= i %>' } }, '<%= i %>'),

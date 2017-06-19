@@ -20,7 +20,7 @@ const questions = [
     {
       type: 'confirm',
       name: 'onion',
-      message: "Would you like the state onionified? (Otherwise it is a simple object per component)",
+      message: "Would you like the state onionified? (Otherwise it is a simple single object per component)",
       default: true
     },
     { type: 'input',

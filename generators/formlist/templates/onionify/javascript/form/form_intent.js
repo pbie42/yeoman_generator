@@ -1,9 +1,10 @@
 import xs from 'xstream'
 
 export default function intent(sources) {
-  <% inputs.forEach(i => { %>
+
+    <% inputs.forEach(i => { %>
   const <%= i %> = sources.DOM.select('#<%= i %>').events('input')
-                             .map(ev => ({ <%= itemNameL>: { <%= i %>: ev.target.value } }))<% }) %>
+                             .map(ev => ({ <%= itemNameL %>: { <%= i %>: ev.target.value } }))<% }) %>
 
   const submitter = sources.DOM.select('#submit').events('click').mapTo(null)
   const editor = sources.DOM.select('#editSubmit').events('click').mapTo(null)

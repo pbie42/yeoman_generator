@@ -2,9 +2,9 @@ import xs from 'xstream'
 import delay from 'xstream/extra/delay'
 import sampleCombine from 'xstream/extra/sampleCombine'
 
-import { Repo } from "./repo"
+import { Repo } from "../repo"
 
-export function intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> }) {
+export function intent({ DOM, HTTP }, new<%= itemNameU %>, edit<%= itemNameU %>) {
 
   const queries = Repo.setup(
     Repo.get("/get<%= itemNameU %>", "get<%= itemNameU %>").now(),
@@ -19,7 +19,7 @@ export function intent({ DOM, HTTP, new<%= itemNameU %>, edit<%= itemNameU %> })
   const actions = queries.actions
   const add<%= itemNameU %> = xs.merge(sampleOnion(new<%= itemNameU %>, <%= itemNameL %>SaveSuccess), loaded<%= itemNameU %>, <%= itemNameL %>EditSuccess)
 
-  return { actions, requests: queries.requests, add<%= itemNameU %> }
+  return { actions, requests: queries.requests, add<%= itemNameU %>, <%= itemNameL %>EditSuccess }
 }
 
 export const sampleOnion = (source, trigger) => {

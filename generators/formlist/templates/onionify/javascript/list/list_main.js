@@ -1,7 +1,7 @@
 import xs from 'xstream'
-import Collection from "../../collections"
+import Collection from "../collections"
 
-import { bind, mergeState } from './utils'
+import { bind, mergeState } from '../utils'
 import <%= itemNameL %>Item from './item/_item'
 
 import { model } from "./model"
