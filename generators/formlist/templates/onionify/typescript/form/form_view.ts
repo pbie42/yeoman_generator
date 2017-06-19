@@ -5,21 +5,13 @@ import { textInput } from '../../views'
 import { State } from '../interfaces'
 
 const view = ([ state, edit]:[ State, Boolean ]):VNode => {
-  const { name, type, color,  } = state.pets
+  const { <% inputs.forEach(i => { %><%= i %>, <% }) %> } = state.<%= itenNameL %>
   console.log({ name, type, color,  })
-    return form({attrs: { onsubmit: "return false" }}, [
+    return form({attrs: { onsubmit: "return false" }}, [<% inputs.forEach(i => { %>
       div([
-        label({ attrs: { for: '#name' } }, 'name'),
-        textInput('#name', name)
-      ]),
-      div([
-        label({ attrs: { for: '#type' } }, 'type'),
-        textInput('#type', type)
-      ]),
-      div([
-        label({ attrs: { for: '#color' } }, 'color'),
-        textInput('#color', color)
-      ]),
+        label({ attrs: { for: '#<%= i %>' } }, '<%= i %>'),
+        textInput('#<%= i %>', <%= i %>)
+      ]),<% }) %>
       edit ? button('#submit', 'Submit') : button('#editSubmit', 'Edit')
     ])}
 

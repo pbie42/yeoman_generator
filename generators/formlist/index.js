@@ -17,6 +17,12 @@ const questions = [
         return val.toLowerCase();
       }
     },
+    {
+      type: 'confirm',
+      name: 'onion',
+      message: "Would you like the state onionified? (Otherwise it is a simple object per component)",
+      default: true
+    },
     { type: 'input',
       name: 'itemName',
       message: 'What is the main item this formList will hold?',
@@ -72,6 +78,7 @@ class FormList extends Base {
       this.listName = answers.listName
       this.itemName = answers.itemName
       this.format = answers.format
+      this.onion = answers.onion
       this.views = answers.views
       if (answers.path.endsWith('/')) this.path = answers.path
       else this.path = answers.path + '/'
@@ -102,19 +109,20 @@ class FormList extends Base {
       itemNameL:this.itemName.toLowerCase(),
       itemNameU: capitalizeFirstLetter(this.itemName)
     }
+    let src = this.onion ? 'onionify' : 'src'
     let filetype = this.format === 'typescript' ? 'ts' : 'js'
-    this.mirror(`src/${this.format}/formlist_app.${filetype}`, `${this.path}app.${filetype}`, data)
-    this.mirror(`src/${this.format}/form/form_main.${filetype}`, `${this.path}${this.formName}/_${this.formName}.${filetype}`, data)
-    this.mirror(`src/${this.format}/form/form_model.${filetype}`, `${this.path}${this.formName}/model.${filetype}`, data)
-    this.mirror(`src/${this.format}/form/form_intent.${filetype}`, `${this.path}${this.formName}/intent.${filetype}`, data)
-    this.mirror(`src/${this.format}/form/form_view.${filetype}`, `${this.path}${this.formName}/view.${filetype}`, data)
-    this.mirror(`src/${this.format}/list/list_main.${filetype}`, `${this.path}${this.listName}/_${this.listName}.${filetype}`, data)
-    this.mirror(`src/${this.format}/list/list_model.${filetype}`, `${this.path}${this.listName}/model.${filetype}`, data)
-    this.mirror(`src/${this.format}/list/list_intent.${filetype}`, `${this.path}${this.listName}/intent.${filetype}`, data)
-    this.mirror(`src/${this.format}/list/list_view.${filetype}`, `${this.path}${this.listName}/view.${filetype}`, data)
-    this.mirror(`src/${this.format}/list/item/_item.${filetype}`, `${this.path}${this.listName}/item/_item.${filetype}`, data)
-    if (this.views === true) this.mirror(`src/${this.format}/form/form_views.${filetype}`, `${this.path}views.${filetype}`, data)
-    if (this.format === 'typescript') this.mirror(`src/typescript/formlist_interfaces.${filetype}`, `${this.path}/interfaces.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/formlist_app.${filetype}`, `${this.path}app.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/form/form_main.${filetype}`, `${this.path}${this.formName}/_${this.formName}.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/form/form_model.${filetype}`, `${this.path}${this.formName}/model.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/form/form_intent.${filetype}`, `${this.path}${this.formName}/intent.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/form/form_view.${filetype}`, `${this.path}${this.formName}/view.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/list/list_main.${filetype}`, `${this.path}${this.listName}/_${this.listName}.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/list/list_model.${filetype}`, `${this.path}${this.listName}/model.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/list/list_intent.${filetype}`, `${this.path}${this.listName}/intent.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/list/list_view.${filetype}`, `${this.path}${this.listName}/view.${filetype}`, data)
+    this.mirror(`${src}/${this.format}/list/item/_item.${filetype}`, `${this.path}${this.listName}/item/_item.${filetype}`, data)
+    if (this.views === true) this.mirror(`${src}/${this.format}/form/form_views.${filetype}`, `${this.path}views.${filetype}`, data)
+    if (this.format === 'typescript') this.mirror(`${src}/typescript/formlist_interfaces.${filetype}`, `${this.path}/interfaces.${filetype}`, data)
   }
 
 }

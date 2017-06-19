@@ -4,22 +4,22 @@ import { Status } from "../../repo"
 import { State } from '../interfaces';
 
 
-export const view = ([petslist, state]:[Array<VNode>, { requests }]) => {
+export const view = ([<%= itemNameL %>list, state]:[Array<VNode>, { requests }]) => {
   return div([
-    h1('Users'),
-    ...showPets(petslist, state.requests.getPets),
-    showSaving(state.requests.savePets)
+    h1('<%= itemNameU %>'),
+    ...show<%= itemNameU %>(<%= itemNameL %>list, state.requests.get<%= itemNameU %>),
+    showSaving(state.requests.save<%= itemNameU %>)
   ])
 }
 
-function showPets(petslist:Array<VNode>, status:{}):Array<VNode> {
+function show<%= itemNameU %>(<%= itemNameL %>list:Array<VNode>, status:{}):Array<VNode> {
   if (status === undefined) return [ h4('loading...') ]
   if (status === Status.pending) { return [ h4('loading...') ]}
-  return petslist
+  return <%= itemNameL %>list
 }
 
 function showSaving(status:{}):VNode {
   if (status === undefined) return div( )
-  if (status === Status.pending) { return h4('adding pets...')}
+  if (status === Status.pending) { return h4('adding <%= itemNameL %>...')}
   return div()
 }

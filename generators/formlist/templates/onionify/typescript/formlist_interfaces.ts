@@ -6,21 +6,17 @@ import { DOMSource, VNode } from '@cycle/dom'
 export type Reducer = (prev?: State) => State | undefined
 
 export interface State {
-  pets: {
-    name:string
-    type:string
-    color:string
+  <%= itemNameL %>: {<% inputs.forEach(i => { %>
+    <$= i %>:string<% }) %>
     id?:number
   }
 }
 
-export interface StatePeel {
-  name: string, 
-  type: string, 
-  color: string, 
+export interface StatePeel {<% inputs.forEach(i => { %>
+  <$= i %>:string<% }) %>
 }
 
-export interface StatePiece { pets: { [x:string]:string } }
+export interface StatePiece { <%= itemNameL %>: { [x:string]:string } }
 
 
 
@@ -38,9 +34,9 @@ export interface Query {
 
 export interface Queries {
   responses: {
-    getPets: Stream<StatePeel[]>
-    savePets: Stream<StatePeel[]>
-    editPets: Stream<StatePeel[]>
+    get<%= itemNameU %>: Stream<StatePeel[]>
+    save<%= itemNameU %>: Stream<StatePeel[]>
+    edit<%= itemNameU %>: Stream<StatePeel[]>
   }
   actions: Stream<Function>
   requests: Stream<Query>
@@ -55,16 +51,14 @@ export interface Sinks {
 
 export interface ListState {
   requests: {
-    editPets?: { status:string }
-    getPets?: { status:string }
-    savePets?: { status:string }
+    edit<%= itemNameU %>?: { status:string }
+    get<%= itemNameU %>?: { status:string }
+    save<%= itemNameU %>?: { status:string }
   }
 }
 
-export interface Data {
-  name: string, 
-  type: string, 
-  color: string, 
+export interface Data {<% inputs.forEach(i => { %>
+  <$= i %>:string<% }) %>
   id:number
 }
 
@@ -75,8 +69,8 @@ export interface FormSinks {
   HTTP:Stream<Query>
   history:Stream<String>
   onion:Stream<Reducer>
-  newPets:Stream<State>
-  editPets:Stream<State>
+  new<%= itemNameU %>:Stream<State>
+  edit<%= itemNameU %>:Stream<State>
 }
 
 export interface FormModel {
@@ -104,14 +98,14 @@ export interface ListSinks {
 export interface ListIntent {
   actions:Stream<Function>
   requests: Stream<Query>
-  addPets:Stream<StatePeel | {}>
+  add<%= itemNameU %>:Stream<StatePeel | {}>
 }
 
 //------------------ITEM--------------------------------------------------------
 
 export interface ItemSources {
   DOM:DOMSource
-  pets: Stream<StatePeel>
+  <%= itemNameL %>: Stream<StatePeel>
   _idx:Stream<number>
 }
 
