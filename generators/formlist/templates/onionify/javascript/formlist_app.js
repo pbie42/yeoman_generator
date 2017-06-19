@@ -12,7 +12,7 @@ export default function app(sources) {
   const editsProxy = xs.create().startWith('')
 
   const initReducer = xs.of(function initReducer(prevState) {
-    return { <%= itemNameL %>: { name: '', type: '', color: '' } } // this is the initial state
+    return { <%= itemNameL %>: { <% inputs.forEach(i => { %><%= i %>: '', <% }) %> } } // this is the initial state
   })
 
   const formListLens = {
