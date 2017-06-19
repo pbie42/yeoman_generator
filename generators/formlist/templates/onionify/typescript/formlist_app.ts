@@ -14,7 +14,7 @@ export default function app({DOM, HTTP, onion }:Sources):Sinks {
   const editsProxy:Stream<{}> = Stream.create().startWith('')
 
   const initReducer:Stream<Reducer> = Stream.of(function initReducer(prevState):State {
-    return { <%= itenNameL %>: { <% inputs.forEach(i => { %><%= i %>: '', <% }) %> } } // this is the initial state
+    return { <%= itemNameL %>: { <% inputs.forEach(i => { %><%= i %>: '', <% }) %> } } // this is the initial state
   })
 
   const formListLens:{ get: Function, set: Function} = {

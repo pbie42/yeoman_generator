@@ -5,7 +5,7 @@ import { textInput } from '../../views'
 import { State } from '../interfaces'
 
 const view = ([ state, edit]:[ State, Boolean ]):VNode => {
-  const { <% inputs.forEach(i => { %><%= i %>, <% }) %> } = state.<%= itenNameL %>
+  const { <% inputs.forEach(i => { %><%= i %>, <% }) %> } = state.<%= itemNameL %>
   console.log({ name, type, color,  })
     return form({attrs: { onsubmit: "return false" }}, [<% inputs.forEach(i => { %>
       div([

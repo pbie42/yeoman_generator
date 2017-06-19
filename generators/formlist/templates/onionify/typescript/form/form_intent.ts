@@ -11,7 +11,7 @@ export default function intent({ DOM, HTTP }:Sources):FormIntent {
   const editEv:Stream<Event> = DOM.select('#editSubmit').events('click')
 
   <% inputs.forEach(i => { %>
-  const <%= i %>:Stream<Function> = <%= i %>Ev.map(ev => ({ <%= itenNameL %>: { <%= i %>: (ev.target as HTMLInputElement).value } }).value)<% }) %>
+  const <%= i %>:Stream<Function> = <%= i %>Ev.map(ev => ({ <%= itemNameL %>: { <%= i %>: (ev.target as HTMLInputElement).value } }).value)<% }) %>
   const submitter:Stream<null> = submitEv.mapTo(null)
   const editor:Stream<null> = editEv.mapTo(null)
 

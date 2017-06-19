@@ -10,7 +10,7 @@ export default function model(actions:Stream<StatePiece>, submitter:Stream<Reduc
   const updater:Stream<Reducer> = actions.map(action => bind(mergeState, action))
   const editorReducer:Stream<Reducer> = edits.map(data => bind(editReducer, data))
   const clearerReducer:Stream<Reducer> = Stream.merge(submitter, editor).map(data => function clearReducer(prevState):State {
-    return { <%= itenNameL %>: { <% inputs.forEach(i => { %><%= i %>: '', <% }) %> }}
+    return { <%= itemNameL %>: { <% inputs.forEach(i => { %><%= i %>: '', <% }) %> }}
   }).compose(delay(60))
 
   const edit:Stream<Boolean> = Stream.merge(Stream.empty().startWith(true), edits.mapTo(false), editor.mapTo(true))
