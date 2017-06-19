@@ -1,11 +1,11 @@
 import { Stream } from 'xstream'
 import sampleCombine from 'xstream/extra/sampleCombine'
 
-import { Repo } from "./repo"
+import { Repo } from "../../repo"
 import { ListIntent, Sources, Query, Queries, State, StatePeel } from '../interfaces'
 
 
-export function intent({ DOM, HTTP}:Sources, <%= itemNameU %>:Stream<State>, edit<%= itemNameU %>:Stream<State>):ListIntent {
+export function intent({ DOM, HTTP}:Sources, new<%= itemNameU %>:Stream<State>, edit<%= itemNameU %>:Stream<State>):ListIntent {
 
   const queries:Queries = Repo.setup(
     Repo.get("/get<%= itemNameU %>", "get<%= itemNameU %>").now(),
@@ -25,6 +25,6 @@ export function intent({ DOM, HTTP}:Sources, <%= itemNameU %>:Stream<State>, edi
 
 export const sampleOnion = (source, trigger) => {
   return trigger.compose(sampleCombine(source)).map(([_, value]) => {
-    return Object.assign({}, value.<%= itemNameL %>)
+    return Object.assign({}, value.<%= itemNameU %>)
   })
 }

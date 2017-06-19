@@ -1,6 +1,6 @@
 import { Stream } from 'xstream'
 
-import { log, bind } from './utils'
+import { log, bind } from '../../../utils'
 import { FormIntent, Sources, StatePiece } from '../interfaces';
 
 export default function intent({ DOM, HTTP }:Sources):FormIntent {
@@ -11,7 +11,7 @@ export default function intent({ DOM, HTTP }:Sources):FormIntent {
   const editEv:Stream<Event> = DOM.select('#editSubmit').events('click')
 
   <% inputs.forEach(i => { %>
-  const <%= i %>:Stream<Function> = <%= i %>Ev.map(ev => ({ <%= itemNameL %>: { <%= i %>: (ev.target as HTMLInputElement).value } }).value)<% }) %>
+  const <%= i %>:Stream<StatePiece> = <%= i %>Ev.map(ev => ({ <%= itemNameL %>: { <%= i %>: (ev.target as HTMLInputElement).value } }))<% }) %>
   const submitter:Stream<null> = submitEv.mapTo(null)
   const editor:Stream<null> = editEv.mapTo(null)
 

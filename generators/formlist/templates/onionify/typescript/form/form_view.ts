@@ -6,7 +6,7 @@ import { State } from '../interfaces'
 
 const view = ([ state, edit]:[ State, Boolean ]):VNode => {
   const { <% inputs.forEach(i => { %><%= i %>, <% }) %> } = state.<%= itemNameL %>
-  console.log({ name, type, color,  })
+  console.log({ <% inputs.forEach(i => { %><%= i %>, <% }) %> })
     return form({attrs: { onsubmit: "return false" }}, [<% inputs.forEach(i => { %>
       div([
         label({ attrs: { for: '#<%= i %>' } }, '<%= i %>'),

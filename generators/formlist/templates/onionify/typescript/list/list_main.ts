@@ -1,8 +1,8 @@
 import { Stream } from 'xstream'
 import { VNode } from '@cycle/dom'
-import Collection from "./collections"
+import Collection from "../../collections"
 
-import { log, sample, bind, mergeState } from './utils'
+import { log, sample, bind, mergeState } from '../../../utils'
 import <%= itemNameL %>Item from './item/_item'
 
 import { model } from "./model"

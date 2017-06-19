@@ -7,13 +7,13 @@ export type Reducer = (prev?: State) => State | undefined
 
 export interface State {
   <%= itemNameL %>: {<% inputs.forEach(i => { %>
-    <$= i %>:string<% }) %>
+    <%= i %>:string<% }) %>
     id?:number
   }
 }
 
 export interface StatePeel {<% inputs.forEach(i => { %>
-  <$= i %>:string<% }) %>
+    <%= i %>:string<% }) %>
 }
 
 export interface StatePiece { <%= itemNameL %>: { [x:string]:string } }
@@ -58,7 +58,7 @@ export interface ListState {
 }
 
 export interface Data {<% inputs.forEach(i => { %>
-  <$= i %>:string<% }) %>
+    <%= i %>:string<% }) %>
   id:number
 }
 

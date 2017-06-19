@@ -4,7 +4,7 @@ import model from "./model"
 import view from "./view"
 import intent from "./intent"
 
-import { sample } from "./utils"
+import { sample } from "../../../utils"
 import { FormSinks, FormIntent, FormModel, Sources, State } from '../interfaces'
 
 export default function <%= formName %>({ DOM, HTTP, onion }:Sources, edits:Stream<{}>):FormSinks {
