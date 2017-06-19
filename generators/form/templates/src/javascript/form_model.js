@@ -1,7 +1,7 @@
 import { log, sample, assign } from './utils'
 
 
-export default function model(actions, queries) {
+export default function model(actions) {
   const states = actions.fold((state, action) => action(state), init())
 
   const submit = actions.filter(action => action.name === 'submitFn')
