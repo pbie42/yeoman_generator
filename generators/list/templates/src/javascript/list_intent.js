@@ -1,7 +1,7 @@
 import xs from 'xstream'
 import delay from 'xstream/extra/delay'
 
-import { log, sample, bind } from '../../utils'
+import { log, sample, bind } from '../utils'
 
 import { Repo } from "../repo"
 

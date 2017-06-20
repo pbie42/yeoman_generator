@@ -2,7 +2,7 @@ import xs from 'xstream'
 import sampleCombine from 'xstream/extra/sampleCombine'
 import Collection from "../collections"
 
-import { log, sample, bind } from './utils'
+import { log, sample, bind } from '../utils'
 import <%= itemNameL %>Item from './item/_item'
 
 import { model } from "./model"

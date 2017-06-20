@@ -2,7 +2,7 @@ import xs from "xstream"
 import sampleCombine from 'xstream/extra/sampleCombine'
 import delay from 'xstream/extra/delay'
 import { div, p, button } from '@cycle/dom'
-import { log } from './utils'
+import { log } from '../../utils'
 
 export default function <%= itemNameL %>Item({ DOM, <%= itemNameL %>, _idx}) {
 
