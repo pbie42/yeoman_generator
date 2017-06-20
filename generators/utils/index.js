@@ -29,7 +29,8 @@ class Utils extends Base {
   prompting() {
     return this.prompt(questions).then((answers) => {
       this.format = answers.format
-      this.path = answers.path
+      if (answers.path.endsWith('/')) this.path = answers.path
+      else this.path = answers.path + '/'
       this.log(this.path)
    })
   }
