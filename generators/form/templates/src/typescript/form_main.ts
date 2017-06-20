@@ -8,7 +8,7 @@ import intent from "./intent"
 
 import { Sources, FormSinks, Intent, Model, State } from './interfaces'
 
-export default function <%= name %>({DOM, HTTP}: Sources): FormSinks {
+export default function <%= formName %>({DOM, HTTP}: Sources): FormSinks {
 
   const resets: Stream<{}> = Stream.create()
   const submits: Stream<{}> = Stream.create()

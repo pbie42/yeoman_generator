@@ -91,7 +91,7 @@ class Form extends Base {
   writing() {
     let src = this.onion ? 'onionify' : 'src'
     let filetype = this.format === 'typescript' ? 'ts' : 'js'
-		this.mirror(`${src}/${this.format}/form_main.${filetype}`, `${this.path}_${this.formName}.${filetype}`, { name: this.formName, inputs: this.inputs })
+		this.mirror(`${src}/${this.format}/form_main.${filetype}`, `${this.path}_${this.formName}.${filetype}`, { formName: this.formName, inputs: this.inputs })
     this.mirror(`${src}/${this.format}/form_model.${filetype}`, `${this.path}model.${filetype}`, { inputs: this.inputs })
     this.mirror(`${src}/${this.format}/form_intent.${filetype}`, `${this.path}intent.${filetype}`, { inputs: this.inputs })
     this.mirror(`${src}/${this.format}/form_view.${filetype}`, `${this.path}view.${filetype}`, { inputs: this.inputs })
