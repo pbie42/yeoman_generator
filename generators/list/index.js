@@ -31,7 +31,7 @@ const questions = [
   { type: 'input',
     name: 'itemName',
     message: 'What is the main item this list will hold?',
-    default: 'item'
+    default: 'users'
   },
 ]
 
@@ -40,7 +40,7 @@ const names = [
       type: 'input',
       name: 'inputs',
       message: "What is a key name in the list item's datafield?",
-      default: 'name'
+      default: 'email'
     },
     {
       type: 'confirm',

@@ -1,9 +1,9 @@
 import { Stream } from 'xstream'
 import delay from 'xstream/extra/delay'
 
-import { log, sample, bind } from './utils'
+import { log, sample, bind } from '../utils'
 
-import { Repo } from "./repo"
+import { Repo } from "../repo"
 import { ListSources, ListIntent, Queries, Data } from './interfaces'
 
 export function intent({ DOM, HTTP }:ListSources, removeProxy:Stream<any>):ListIntent {
