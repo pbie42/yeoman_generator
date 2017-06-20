@@ -1,6 +1,6 @@
 import { Stream } from 'xstream'
 
-import { log, bind } from '../../../utils'
+import { log, bind } from '../utils'
 import { FormIntent, Sources, StatePiece } from '../interfaces';
 
 export default function intent({ DOM, HTTP }:Sources):FormIntent {

@@ -1,7 +1,7 @@
 import { Stream } from 'xstream'
 import isolate from '@cycle/isolate'
 import { div, VNode } from '@cycle/dom'
-import { assign } from '../../utils'
+import { assign } from '../utils'
 
 
 import <%= formName %> from './<%= formName %>/_<%= formName %>'

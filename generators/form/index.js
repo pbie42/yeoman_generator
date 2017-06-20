@@ -16,6 +16,12 @@ const questions = [
       return val.toLowerCase();
     }
   },
+  {
+    type: 'confirm',
+    name: 'onion',
+    message: "Would you like the state onionified? (Otherwise it is a simple single object per component)",
+    default: true
+  },
   { type: 'input',
     name: 'name',
     message: 'What is the name of this form?',
@@ -40,7 +46,7 @@ const names = [
     type: 'input',
     name: 'inputs',
     message: 'What is the name of the input in this form?',
-    default: 'input'
+    default: 'email'
   },
   {
     type: 'confirm',
@@ -59,6 +65,7 @@ class Form extends Base {
       if (this.formother) this.prompting()
       this.formName = answers.name
       this.format = answers.format
+      this.onion = answers.onion
       if (answers.path.endsWith('/')) this.path = answers.path
       else this.path = answers.path + '/'
       this.views = answers.views
@@ -82,13 +89,14 @@ class Form extends Base {
   }
 
   writing() {
+    let src = this.onion ? 'onionify' : 'src'
     let filetype = this.format === 'typescript' ? 'ts' : 'js'
-		this.mirror(`src/${this.format}/form_main.${filetype}`, `${this.path}_${this.formName}.${filetype}`, { name: this.formName })
-    this.mirror(`src/${this.format}/form_model.${filetype}`, `${this.path}model.${filetype}`, { inputs: this.inputs })
-    this.mirror(`src/${this.format}/form_intent.${filetype}`, `${this.path}intent.${filetype}`, { inputs: this.inputs })
-    this.mirror(`src/${this.format}/form_view.${filetype}`, `${this.path}view.${filetype}`, { inputs: this.inputs })
-    if (this.views === true) this.mirror(`src/${this.format}/form_views.${filetype}`, `${this.path}views.${filetype}`, { inputs: this.inputs })
-    if (this.format === 'typescript') this.mirror(`src/typescript/form_interfaces.${filetype}`, `${this.path}/interfaces.${filetype}`, { inputs: this.inputs })
+		this.mirror(`${src}/${this.format}/form_main.${filetype}`, `${this.path}_${this.formName}.${filetype}`, { name: this.formName, inputs: this.inputs })
+    this.mirror(`${src}/${this.format}/form_model.${filetype}`, `${this.path}model.${filetype}`, { inputs: this.inputs })
+    this.mirror(`${src}/${this.format}/form_intent.${filetype}`, `${this.path}intent.${filetype}`, { inputs: this.inputs })
+    this.mirror(`${src}/${this.format}/form_view.${filetype}`, `${this.path}view.${filetype}`, { inputs: this.inputs })
+    if (this.views === true) this.mirror(`${src}/${this.format}/form_views.${filetype}`, `${this.path}views.${filetype}`, { inputs: this.inputs })
+    if (this.format === 'typescript') this.mirror(`${src}/typescript/form_interfaces.${filetype}`, `${this.path}/interfaces.${filetype}`, { inputs: this.inputs })
   }
 
 }

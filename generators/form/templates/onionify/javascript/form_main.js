@@ -6,12 +6,12 @@ import model from "./model"
 import view from "./view"
 import intent from "./intent"
 
-export default function onionForm(sources) {
+export default function <%= fromName %>(sources) {
 
   const state = sources.onion.state$
 
   const initReducer = xs.of(function initReducer(prevState) {
-    return { name: '', email: '', password: '' } // this is the initial state
+    return { <% inputs.forEach(i => { %><%= i %>: '', <% }) %> } // this is the initial state
   })
 
   const submits = xs.create()
@@ -20,10 +20,9 @@ export default function onionForm(sources) {
   const { reducer } = model(actions, submitter)
 
   const newSubmit = sample(state, submitter)
+  const reducers = xs.merge(initReducer, reducer)
 
   submits.imitate(newSubmit)
-
-  const reducers = xs.merge(initReducer, reducer)
 
   return {
     DOM: state.map(view),
