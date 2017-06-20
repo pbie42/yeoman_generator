@@ -1,7 +1,7 @@
 import { Stream } from 'xstream'
 import delay from 'xstream/extra/delay'
 
-import { log, sample, assign, bind, mergeStateLv1 } from '../../utils'
+import { log, sample, assign, bind, mergeStateLv1 } from '../utils'
 import { Reducer } from './interfaces'
 
 

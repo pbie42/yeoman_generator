@@ -4,7 +4,7 @@ import { DOMSource } from '@cycle/dom';
 
 import { <% inputs.forEach(i => { %><%= i %>Change, <% }) %>submitFn, clear } from './model'
 import { Repo } from "../repo"
-import { log, bind } from './utils'
+import { log, bind } from '../utils'
 
 import { Sources, Intent, Queries } from './interfaces'
 

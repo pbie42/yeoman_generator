@@ -1,5 +1,5 @@
 import { Stream } from 'xstream'
-import { log, sample, assign } from './utils'
+import { log, sample, assign } from '../utils'
 
 import { State, Model } from './interfaces'
 
@@ -8,7 +8,7 @@ export default function model(actions: Stream<Function>):Model {
   const states:Stream<State> = actions.fold((state:State, action:Function):State => action(state), init())
 
   const submit:Stream<Function> = actions.filter(action => action.name === 'submitFn')
-  const newSubmit:Stream<State> = sample(states, submit)
+  const newSubmit:Stream<State | Object> = sample(states, submit)
 
   return { states, newSubmit }
 }

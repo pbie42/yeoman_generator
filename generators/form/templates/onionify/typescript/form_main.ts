@@ -1,6 +1,6 @@
 import { Stream } from 'xstream'
 
-import { log, sample } from "../../utils"
+import { log, sample } from "../utils"
 import { State, Reducer, Sources, Sinks, Intent } from './interfaces'
 
 import model from "./model"
@@ -20,7 +20,7 @@ export default function <%= formName %>(sources:Sources):Sinks {
   const { actions, submitter, requests, submitSuccess }:Intent = intent(sources, submits)
   const { reducer }: { reducer: Stream<Reducer> } = model(actions, submitter)
 
-  const newSubmit:Stream<State> = sample(state, submitter)
+  const newSubmit:Stream<State | Object> = sample(state, submitter)
   const reducers:Stream<Reducer> = Stream.merge(initReducer, reducer)
 
   submits.imitate(newSubmit)

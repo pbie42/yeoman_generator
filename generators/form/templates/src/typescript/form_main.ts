@@ -16,7 +16,7 @@ export default function <%= formName %>({DOM, HTTP}: Sources): FormSinks {
   const { actions, requests, submitSuccess }:Intent = intent({ DOM, HTTP }, submits, resets)
   const { states, newSubmit }:Model = model(actions)
 
-  const newReset:Stream<State> = Stream.merge(newSubmit)
+  const newReset:Stream<State | Object> = Stream.merge(newSubmit)
 
   submits.imitate(newSubmit)
   resets.imitate(newReset)

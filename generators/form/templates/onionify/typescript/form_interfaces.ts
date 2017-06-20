@@ -22,7 +22,7 @@ export interface Sinks {
   HTTP: Stream<Query>
   history: Stream<String>
   onion: Stream<{} | Reducer>
-  newSubmit: Stream<State>
+  newSubmit: Stream<State | Object>
 }
 
 //----------------------------Intent--------------------------------------------

@@ -1,6 +1,6 @@
 import { Stream } from 'xstream'
 import { Repo } from "../repo"
-import { log, bind } from '../../utils'
+import { log, bind } from '../utils'
 
 import { StatePiece, State, Queries, Intent, Sources } from './interfaces'
 

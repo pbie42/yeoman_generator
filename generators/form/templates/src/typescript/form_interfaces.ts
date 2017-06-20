@@ -32,5 +32,5 @@ export interface Intent {
 
 export interface Model {
   states:Stream<State>
-  newSubmit:Stream<State>
+  newSubmit:Stream<State | Object>
 }
