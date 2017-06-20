@@ -1,4 +1,4 @@
-import { ul, h1, h4, VNode } from '@cycle/dom'
+import { ul, h1, h4, div, VNode } from '@cycle/dom'
 
 import { Status } from "./repo"
 import { State } from '../interfaces';
