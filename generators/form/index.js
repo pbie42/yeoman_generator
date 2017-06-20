@@ -46,7 +46,11 @@ const names = [
     type: 'input',
     name: 'inputs',
     message: 'What is the name of the input in this form?',
-    default: 'email'
+    default: 'email',
+    filter: function (val) {
+      if (val.toLowerCase() === 'state') val + ''
+      return val.toLowerCase();
+    }
   },
   {
     type: 'confirm',

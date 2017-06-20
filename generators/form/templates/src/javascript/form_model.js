@@ -14,7 +14,7 @@ export const init = () => ({ <% inputs.forEach(i => { %><%= i %>: '', <% }) %> }
 
 export const clear = () => init()
 
-export const submitFn = (state) => state
+export const submitFn = (compState) => compState
 <% inputs.forEach(i => { %>
-export const <%= i %>Change = (<%= i %>, state) => assign(state, { <%= i %> })
+export const <%= i %>Change = (<%= i %>, compState) => assign(compState, { <%= i %> })
 <% }) %>

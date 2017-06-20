@@ -1,6 +1,6 @@
 import xs from "xstream"
 import sampleCombine from 'xstream/extra/sampleCombine'
-import { div, p, button } from '@cycle/dom'
+import { li, p, button } from '@cycle/dom'
 
 export default function <%= itemNameL %>Item({ DOM, <%= itemNameL %>, _idx}) {
 
@@ -15,7 +15,7 @@ export default function <%= itemNameL %>Item({ DOM, <%= itemNameL %>, _idx}) {
 
   var sinks = {
     DOM: items.map(([{ <% inputs.forEach(i => { %><%= i %>, <% }) %> }, _idx]) =>
-      div({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
+      li({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
         p(`<%= i %>: ${<%= i %>}`),<% }) %>
         button('.edit', 'Edit'),
         button('.remove', 'Remove')

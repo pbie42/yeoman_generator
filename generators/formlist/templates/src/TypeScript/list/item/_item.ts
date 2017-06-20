@@ -1,5 +1,5 @@
 import { Stream } from "xstream"
-import { div, p, button } from '@cycle/dom'
+import { li, p, button } from '@cycle/dom'
 
 import { State, ItemSources, ItemSinks, Data } from '../../interfaces'
 
@@ -17,7 +17,7 @@ export default function <%= itemNameL %>Item({ DOM, <%= itemNameL %>, _idx}:Item
 
   return {
     DOM: itemState.map(([{ <% inputs.forEach(i => { %><%= i %>, <% }) %> }, _idx]) =>
-      div({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
+      li({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
         p(`<%= i %>: ${<%= i %>}`),<% }) %>
         button('.edit', 'Edit'),
         button('.remove', 'Remove')

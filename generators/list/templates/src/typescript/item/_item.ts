@@ -1,7 +1,7 @@
 import { Stream } from "xstream"
 import sampleCombine from 'xstream/extra/sampleCombine'
 import delay from 'xstream/extra/delay'
-import { div, p, button, VNode, DOMSource } from '@cycle/dom'
+import { li, p, button, VNode, DOMSource } from '@cycle/dom'
 import { log } from '../../utils'
 
 import { ItemSources, ItemSinks, Data } from '../interfaces'
@@ -20,7 +20,7 @@ export default function <%= itemNameL %>Item({ DOM, <%= itemNameL %>, _idx}:Item
 
   var sinks:ItemSinks = {
     DOM: items.map(([{ <% inputs.forEach(i => { %><%= i %>, <% }) %> }, _idx]) =>
-      div({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
+      li({ attrs: { 'data-id': _idx } }, [<% inputs.forEach(i => { %>
         p(`<%= i %>: ${<%= i %>}`),<% }) %>
         button('.remove', 'Remove')
       ])

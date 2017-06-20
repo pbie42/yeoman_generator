@@ -1,9 +1,9 @@
-import { div, h1, h4 } from '@cycle/dom'
+import { ul, h1, h4 } from '@cycle/dom'
 
 import { Status } from "../repo"
 
 export const view = ([<%= itemNameL %>list, state]) => {
-  return div([
+  return ul([
     h1('<%= itemNameU %>'),
     ...show<%= itemNameU %>(<%= itemNameL %>list, state.requests.get<%= itemNameU %>),
     showSaving(state.requests.save<%= itemNameU %>)

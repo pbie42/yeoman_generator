@@ -19,12 +19,12 @@ export const init = ():State => ({ <% inputs.forEach(i => { %><%= i %>: '', <% }
 
 export const clear = ():State => init()
 
-export const edit = (data:Data, state:State):State =>
-      assign(state, { <% inputs.forEach(i => { %><%= i %>: data.<%= i %>, <% }) %>id: data.id })
+export const edit = (data:Data, compState:State):State =>
+      assign(compState, { <% inputs.forEach(i => { %><%= i %>: data.<%= i %>, <% }) %>id: data.id })
 
-export const submitFn = (state:State):State => state
+export const submitFn = (compState:State):State => compState
 
-export const editFn = (state:State):State => state
+export const editFn = (compState:State):State => compState
 <% inputs.forEach(i => { %>
-export const <%= i %>Change = (<%= i %>:string, state:State):State => assign(state, { <%= i %> })
+export const <%= i %>Change = (<%= i %>:string, compState:State):State => assign(compState, { <%= i %> })
 <% }) %>

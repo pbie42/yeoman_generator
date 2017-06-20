@@ -1,11 +1,11 @@
-import { div, h1, h4, VNode } from '@cycle/dom'
+import { ul, h1, h4, VNode } from '@cycle/dom'
 
 import { Status } from "./repo"
 import { State } from '../interfaces';
 
 
 export const view = ([<%= itemNameL %>list, state]:[Array<VNode>, { requests }]) => {
-  return div([
+  return ul([
     h1('<%= itemNameU %>'),
     ...show<%= itemNameU %>(<%= itemNameL %>list, state.requests.get<%= itemNameU %>),
     showSaving(state.requests.save<%= itemNameU %>)

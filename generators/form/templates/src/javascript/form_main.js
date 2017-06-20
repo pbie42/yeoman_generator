@@ -1,6 +1,6 @@
 import xs from 'xstream'
 
-import { log } from "./utils"
+import { log } from "../utils"
 
 import model from "./model"
 import view from "./view"
